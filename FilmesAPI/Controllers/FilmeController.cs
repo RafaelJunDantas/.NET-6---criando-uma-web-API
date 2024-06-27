@@ -70,7 +70,7 @@ public class FilmeController : ControllerBase
         //{
         //    PrintFilme(filme);
         //}
-        return Ok(_mapper.Map<List<ReadFilmeDTO>>(_context.Filmes.Skip(skip).Take(take)));
+        return Ok(_mapper.Map<List<ReadFilmeDTO>>(_context.Filmes.Skip(skip).Take(take).ToList()));
     }
 
     /// <summary>
