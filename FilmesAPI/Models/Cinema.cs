@@ -12,6 +12,7 @@ public class Cinema
     [MaxLength(50, ErrorMessage = "Tamanho do nome do cinema nao pode exceder 50 caracteres")]
     public string nome { get; set; }
 
+    [Required]
     public int enderecoID { get; set; }
     public virtual Endereco endereco { get; set; }
 }
