@@ -2,5 +2,5 @@
 
 public class CreateSessaoDTO
 {
-
+    public int filmeID { get; set; }
 }

@@ -8,5 +8,8 @@ public class Sessao
     [Key]
     public int id { get; set; }
 
-    public 
+    [Required]
+    public int filmeID { get; set; }
+
+    public virtual Filme filme { get; set; }
 }
