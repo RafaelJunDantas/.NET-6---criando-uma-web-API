@@ -11,10 +11,10 @@ namespace FilmesAPI.Controllers;
 [Route("[Controller]")]
 public class CinemaController : ControllerBase
 {
-    private FilmeContext _context;
+    private Context _context;
     private IMapper _mapper;
 
-    public CinemaController(FilmeContext context, IMapper mapper)
+    public CinemaController(Context context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -54,7 +54,9 @@ public class CinemaController : ControllerBase
             return Ok(_context.Cinemas);
         }
         if (take == 0) take = _context.Cinemas.Count();
-        return Ok(_mapper.Map<List<ReadCinemaDTO>>(_context.Cinemas.Skip(skip).Take(take)));
+
+        var listaCinema = _mapper.Map<List<ReadCinemaDTO>>(_context.Cinemas.Skip(skip).Take(take).ToList());
+        return Ok(listaCinema);
     }
 
     /// <summary>
@@ -89,7 +91,7 @@ public class CinemaController : ControllerBase
     /// <response code="204">Caso consiga atualizar o cinema com o ID especificado</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdateCinema(int id, [FromBody] UpdateFilmeDTO cinemaDTO)
+    public IActionResult UpdateCinema(int id, [FromBody] UpdateCinemaDTO cinemaDTO)
     {
         var cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.id == id);
 
@@ -141,7 +143,7 @@ public class CinemaController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult DeleteCinema(int id)
     {
-        var cinema = _context.Cinema.FirstOrDefault(cinema => cinema.id == id);
+        var cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.id == id);
 
         if (cinema == null) return NotFound();
 

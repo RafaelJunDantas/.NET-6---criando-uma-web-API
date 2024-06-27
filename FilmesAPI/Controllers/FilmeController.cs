@@ -12,10 +12,10 @@ namespace FilmesAPI.Controllers;
 
 public class FilmeController : ControllerBase
 {
-    private FilmeContext _context;
+    private Context _context;
     private IMapper _mapper;
 
-    public FilmeController(FilmeContext context, IMapper mapper)
+    public FilmeController(Context context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
