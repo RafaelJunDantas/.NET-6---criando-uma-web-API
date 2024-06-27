@@ -2,6 +2,8 @@
 
 public class ReadFilmeDTO
 {
+    public int id { get; set; }
+
     public string titulo { get; set; }
 
     public string genero { get; set; }
