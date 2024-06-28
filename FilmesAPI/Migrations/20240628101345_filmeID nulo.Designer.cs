@@ -3,6 +3,7 @@ using System;
 using FilmesAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmesAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class FilmeContextModelSnapshot : ModelSnapshot
+    [Migration("20240628101345_filmeID nulo")]
+    partial class filmeIDnulo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,13 +88,19 @@ namespace FilmesAPI.Migrations
 
             modelBuilder.Entity("FilmesAPI.Models.Sessao", b =>
                 {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int?>("cinemaID")
                         .HasColumnType("int");
 
                     b.Property<int?>("filmeID")
                         .HasColumnType("int");
 
-                    b.HasKey("cinemaID", "filmeID");
+                    b.HasKey("id");
+
+                    b.HasIndex("cinemaID");
 
                     b.HasIndex("filmeID");
 
@@ -114,15 +122,11 @@ namespace FilmesAPI.Migrations
                 {
                     b.HasOne("FilmesAPI.Models.Cinema", "cinema")
                         .WithMany("sessoes")
-                        .HasForeignKey("cinemaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("cinemaID");
 
                     b.HasOne("FilmesAPI.Models.Filme", "filme")
                         .WithMany("sessoes")
-                        .HasForeignKey("filmeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("filmeID");
 
                     b.Navigation("cinema");
 
